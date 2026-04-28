@@ -3,12 +3,14 @@ kind: Ingress
 metadata:
   name: solar-system
   namespace: _{_NAMESPACE_}_
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   ingressClassName: nginx
-    rules:
-    - http:
+  rules:
+  - http:
       paths:
-      - path: /
+      - path: /prod
         pathType: Prefix
         backend:
           service:
