@@ -188,7 +188,7 @@ jobs:
         - name: check files
           shell: powershell
           run: |
-           Get-Content kubernetes/development/*.yml
+           Get-Content kubernetes/development/*.yaml
 
 
                
