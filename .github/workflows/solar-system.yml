@@ -3,6 +3,7 @@ on: push
 jobs:
   unit_testing:
     name: Unit Testing
+    runs-on: ubuntu-latest
     steps:
       - name: Checking Out
         uses: actions/checkout@v7
