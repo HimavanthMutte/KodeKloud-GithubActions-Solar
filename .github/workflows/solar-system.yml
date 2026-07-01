@@ -5,6 +5,24 @@ env:
   MONGO_USERNAME: ${{ vars.MONGO_USER }}
   MONGO_PASSWORD: ${{ secrets.MONGO_PASSWORD }}
 jobs:
+  coverage_testing:
+    name: Unit Testing - ubuntu.latest
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checking Out
+        uses: actions/checkout@v7
+      
+      - name: Setting up Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 20
+
+      - name: Installing Dependencies
+        run: npm install
+
+      - name: Coverage Testing
+        run: npm run coverage
+
   unit_testing:
     strategy:
       matrix:
