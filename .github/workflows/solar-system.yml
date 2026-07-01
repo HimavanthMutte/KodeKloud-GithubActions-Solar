@@ -1,19 +1,18 @@
 name: Solar System
 on: push
-strategy:
-  matrix:
-    node_v: [18,19,20]
-    os: [ubuntu-latest,windows-latest]
-    exclude:
-      - node_v: 20
-        os: windows-latest
-        
 env:
   MONGO_URI: ${{ vars.MONGO_URI }}
   MONGO_USERNAME: ${{ vars.MONGO_USER }}
   MONGO_PASSWORD: ${{ secrets.MONGO_PASSWORD }}
 jobs:
   unit_testing:
+    strategy:
+      matrix:
+        node_v: [18,19,20]
+        os: [ubuntu-latest,windows-latest]
+        exclude:
+          - node_v: 20
+            os: windows-latest
     name: Unit Testing - ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     steps:
