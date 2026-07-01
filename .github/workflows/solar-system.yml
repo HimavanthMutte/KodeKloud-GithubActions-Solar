@@ -1,5 +1,9 @@
 name: Solar System
 on: push
+env:
+  MONGO_URI: ${{ vars.MONGO_URI }}
+  MONGO_USERNAME: ${{ vars.MONGO_USER }}
+  MONGO_PASSWORD: ${{ secrets.MONGO_PASSWORD }}
 jobs:
   unit_testing:
     name: Unit Testing
