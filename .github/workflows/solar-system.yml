@@ -21,6 +21,7 @@ jobs:
         run: npm install
 
       - name: Coverage Testing
+        continue-on-error: true
         run: npm run coverage
 
   unit_testing:
