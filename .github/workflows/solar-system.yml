@@ -1,0 +1,22 @@
+name: Solar System Workflow
+on: push
+jobs:
+  unit_testing:
+    name: Unit Testing
+    steps:
+      - name: Checking Out
+        uses: actions/checkout@v7
+      
+      - name: Setting up Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 8.11.3
+
+      - name: Installing Dependencies
+        run: npm install
+
+      - name: Unit Tests
+        run: npm test
+
+      
+        
