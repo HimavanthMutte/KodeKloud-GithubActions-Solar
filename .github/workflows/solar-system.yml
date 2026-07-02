@@ -6,8 +6,12 @@ env:
   MONGO_PASSWORD: ${{ secrets.MONGO_PASSWORD }}
 jobs:
   coverage_testing:
-    name: Unit Testing - ubuntu.latest
+    name: Coverage Testing - ${{ matrix.os }}
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node_v: [18,20]
+        os: [ubuntu-latest,macos-latest]
     steps:
       - name: Checking Out
         uses: actions/checkout@v7
@@ -16,6 +20,12 @@ jobs:
         uses: actions/setup-node@v6
         with:
           node-version: 20
+
+      - name: Cache Dependencies
+        uses: actions/checkout@v6
+        with:
+          key: ${{ matrix.os }}-node-modules-${{ hashFiles(package-lock.json) }}
+          path: node_modules
 
       - name: Installing Dependencies
         run: npm install
@@ -27,11 +37,8 @@ jobs:
   unit_testing:
     strategy:
       matrix:
-        node_v: [18,19,20]
-        os: [ubuntu-latest,windows-latest]
-        exclude:
-          - node_v: 20
-            os: windows-latest
+        node_v: [18,20]
+        os: [ubuntu-latest,macos-latest]
     name: Unit Testing - ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     steps:
@@ -42,6 +49,12 @@ jobs:
         uses: actions/setup-node@v6
         with:
           node-version: ${{ matrix.node_v }}
+
+      - name: Cache Dependencies
+        uses: actions/checkout@v6
+        with:
+          key: ${{ matrix.os }}-node-modules-${{ hashFiles(package-lock.json) }}
+          path: node_modules
 
       - name: Installing Dependencies
         run: npm install
