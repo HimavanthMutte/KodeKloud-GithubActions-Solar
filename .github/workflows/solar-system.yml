@@ -24,7 +24,7 @@ jobs:
       - name: Cache Dependencies
         uses: actions/checkout@v6
         with:
-          key: ${{ matrix.os }}-node-modules-${{ hashFiles(package-lock.json) }}
+          key: ${{ matrix.os }}-node-modules-${{ hashFiles('package-lock.json') }}
           path: node_modules
 
       - name: Installing Dependencies
@@ -53,7 +53,7 @@ jobs:
       - name: Cache Dependencies
         uses: actions/checkout@v6
         with:
-          key: ${{ matrix.os }}-node-modules-${{ hashFiles(package-lock.json) }}
+          key: ${{ matrix.os }}-node-modules-${{ hashFiles('package-lock.json') }}
           path: node_modules
 
       - name: Installing Dependencies
