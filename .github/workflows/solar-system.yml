@@ -22,7 +22,7 @@ jobs:
           node-version: 20
 
       - name: Cache Dependencies
-        uses: actions/checkout@v6
+        uses: actions/cache@v4
         with:
           key: ${{ matrix.os }}-node-modules-${{ hashFiles('package-lock.json') }}
           path: node_modules
@@ -42,7 +42,7 @@ jobs:
     name: Unit Testing - ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     steps:
-      
+
       - name: Checking Out
         uses: actions/checkout@v7
       
@@ -52,7 +52,7 @@ jobs:
           node-version: ${{ matrix.node_v }}
 
       - name: Cache Dependencies
-        uses: actions/checkout@v6
+        uses: actions/cache@v4
         with:
           key: ${{ matrix.os }}-node-modules-${{ hashFiles('package-lock.json') }}
           path: node_modules
