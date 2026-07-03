@@ -3,9 +3,6 @@ name: Solar System Workflow
 on: 
   workflow_dispatch:
   push:
-    branches:
-      - main
-      - 'feature/*'
     
 jobs:
     unit-testing:
@@ -20,14 +17,33 @@ jobs:
           with:
             node-version: 20
     
+        - name: Cache Depenedencies
+          uses: actions/cache@v6
+          with:
+            path: node_modules
+            key: ${{ runner.os }}-node-modules-${{ hashFiles('package.lock.json') }} 
+
         - name: Install Dependencies
-          run: npm install
+          run: npm ci
     
         - name: Unit Testing
           run: npm test
           
         - name: Archive Test Result
-          uses: actions/upload-artifact@v3
+          uses: actions/upload-artifact@v4
           with:
             name: Mocha-Test-Result
             path: test-results.xml
+
+        - name: Docker Login
+          uses: docker/login-action@v4
+          with:
+            username: ${{ vars.DOCKERHUB_USERNAME }}
+            password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+        - name: Docker Hub image Push
+          uses: docker/build-push-action@v7
+          with:
+            context: "{{defaultContext}}:mysubdir"
+            push: true
+            tags: ${{ vars.DOCKERHUB_USERNAME }}/solar-system:${{ github.sha }} 
