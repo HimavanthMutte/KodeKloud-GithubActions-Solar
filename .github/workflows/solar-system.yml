@@ -11,8 +11,6 @@ jobs:
     unit-testing:
         name: Unit Testing
         runs-on: ubuntu-latest
-        permissions:
-          packages: write
         container:
           image: node:20-alpine3.22
         steps:
@@ -37,25 +35,31 @@ jobs:
           with:
             name: Mocha-Test-Result
             path: test-results.xml
+    
+    building-image:
+          name: Building Image
+          runs-on: ubuntu-latest
+          needs: unit-testing
+          steps:
 
-        - name: Docker Login
-          uses: docker/login-action@v4
-          with:
-            username: ${{ vars.DOCKERHUB_USERNAME }}
-            password: ${{ secrets.DOCKERHUB_TOKEN }}
+            - name: Docker Login
+              uses: docker/login-action@v4
+              with:
+                username: ${{ vars.DOCKERHUB_USERNAME }}
+                password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-        - name: Github Container Registry Login
-          uses: docker/login-action@v4
-          with:
-            registry: ghcr.io
-            username: ${{ github.repository_owner }}
-            password: ${{ secrets.GITHUB_TOKEN }}
+            - name: Github Container Registry Login
+              uses: docker/login-action@v4
+              with:
+                registry: ghcr.io
+                username: ${{ github.repository_owner }}
+                password: ${{ secrets.GITHUB_TOKEN }}
 
-        - name: Docker Hub image Push
-          uses: docker/build-push-action@v7
-          with:
-            context: .
-            push: true
-            tags: |
-              ${{ vars.DOCKERHUB_USERNAME }}/solar-system:${{ github.sha }}
-              ghcr.io/himavanthmutte/solar-system:${{ github.sha }} 
+            - name: Docker Hub image Push
+              uses: docker/build-push-action@v7
+              with:
+                context: .
+                push: true
+                tags: |
+                  ${{ vars.DOCKERHUB_USERNAME }}/solar-system:${{ github.sha }}
+                  ghcr.io/himavanthmutte/solar-system:${{ github.sha }} 
