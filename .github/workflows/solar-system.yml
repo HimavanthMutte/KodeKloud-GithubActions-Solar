@@ -13,14 +13,12 @@ jobs:
         runs-on: ubuntu-latest
         permissions:
           packages: write
+        container:
+          image: node:trixie-slim
         steps:
+
         - name: Checkout Repository
           uses: actions/checkout@v4
-
-        - name: Setup NodeJS Version
-          uses: actions/setup-node@v3
-          with:
-            node-version: 20
     
         - name: Cache Depenedencies
           uses: actions/cache@v6
