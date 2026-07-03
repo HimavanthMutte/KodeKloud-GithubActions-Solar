@@ -14,7 +14,7 @@ jobs:
         permissions:
           packages: write
         container:
-          image: node:trixie-slim
+          image: 20-alpine3.22
         steps:
 
         - name: Checkout Repository
