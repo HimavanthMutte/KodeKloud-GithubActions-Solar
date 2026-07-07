@@ -31,6 +31,20 @@ jobs:
       - name: Checking out Repo
         uses: actions/checkout@v7
 
+      - name: Setting Up Node Runtime
+        uses: actions/setup-node@v6
+        with:
+          node-version: '8.11.3'
+      
+      - name: Caching Dependencies
+        uses: actions/cache@v6
+        with:
+          path: ./node_modules
+          key: ${{ runner.os }}-node-modules-${{ hashFiles('package-lock.json') }}
+      
+      - name: Installing Dependencies
+        run: npm install
+
       - name: OWASP Dependency Check
         uses: dependency-check/Dependency-Check_Action@main
         with:
