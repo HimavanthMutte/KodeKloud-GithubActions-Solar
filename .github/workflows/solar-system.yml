@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
 jobs:
   building:
-    run-on: ubuntu-latest
+    runs-on: ubuntu-latest
     steps:
       - name: Checking out Repo
         uses: actions/checkout@v7
