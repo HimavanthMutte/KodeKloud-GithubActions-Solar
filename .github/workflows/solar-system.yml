@@ -61,4 +61,7 @@ jobs:
           name: owasp-dependency-report
           path: owasp-reports/*.HTML  
 
+      - name: Check Generated Files
+        run: ls -R
+
 
