@@ -1,0 +1,27 @@
+name: solar-system-workflow
+on:
+  push:
+  workflow_dispatch:
+jobs:
+  building:
+    run-on: ubuntu-latest
+    steps:
+      - name: Checking out Repo
+        uses: actions/checkout@v7
+
+      - name: Setting Up Node Runtime
+        uses: actions/setup-node@v6
+        with:
+          node-version: '8.11.3'
+      
+      - name: Caching Dependencies
+        uses: actions/cache@v6
+        with:
+          path: ./node_modules
+          key: ${{ runner.os }}-node-modules-${{ hashFiles('package-lock.json') }}
+      
+      - name: Installing Dependencies
+        run: npm ci 
+  
+
+
