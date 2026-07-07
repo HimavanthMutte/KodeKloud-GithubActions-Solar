@@ -80,9 +80,6 @@ jobs:
       - name: Audit Check
         run: npm audit --audit-level=high --json > audit.json
         continue-on-error: true
-
-      - name: Audit Fix
-        run: npm audit fix
       
       - name: Upload Audit Report
         uses: actions/upload-artifact@v4
