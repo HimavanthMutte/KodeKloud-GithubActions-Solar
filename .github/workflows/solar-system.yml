@@ -51,7 +51,7 @@ jobs:
           project: "solar-system"
           path: "."
           format: "HTML"
-          out: "owasp-dependency-report"
+          out: "owasp-reports"
           args: >
             --disableNodeAudit
 
@@ -59,6 +59,6 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: owasp-dependency-report
-          path: owasp-dependency-report.HTML  
+          path: owasp-reports/*.HTML  
 
 
