@@ -59,7 +59,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: owasp-dependency-report
-          path: owasp-reports/*.HTML  
+          path: owasp-reports/*.html
 
       - name: Check Generated Files
         run: ls -R
