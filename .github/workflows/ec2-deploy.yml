@@ -17,5 +17,5 @@ jobs:
                         docker ps
                         docker stop app || true
                         docker rm app || true
-                        docker run -p 3000:3000 --name app docker.io/himu26/ci:3d3225608a62d42446e924ee1eae492f2cb4af44
+                        docker run -d -p 3000:3000 --name app docker.io/himu26/ci:3d3225608a62d42446e924ee1eae492f2cb4af44
 
