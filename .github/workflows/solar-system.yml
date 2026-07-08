@@ -62,14 +62,14 @@ jobs:
         uses: docker/login-action@v4
         with: 
           registry: ghcr.io
-          username: ${{ github.actor }}
+          username: himavanthmutte
           password: ${{ secrets.GITHUB_TOKEN }}
       
       - name: Loading Image
         run: docker load -i ci-learning.jar
 
       - name: Retagging 
-        run: docker tag ci-learning ghcr.io/${{ github.actor }}/ci:${{ github.sha }}
+        run: docker tag ci-learning ghcr.io/himavanthmutte/ci:${{ github.sha }}
 
       - name: Pushing Image
-        run: docker push ghcr.io/${{ github.actor }}/ci:${{ github.sha }}
+        run: docker push ghcr.io/himavanthmutte/ci:${{ github.sha }}
