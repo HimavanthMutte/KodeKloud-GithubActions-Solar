@@ -9,6 +9,10 @@ jobs:
   building:
     runs-on: ubuntu-latest
     steps:
+
+      - name: Checking Out Repo
+        uses: actions/checkout@v7
+
       - name: Building Docker Image
         run: docker build -t ci-learning . 
 
