@@ -3,7 +3,9 @@ name: Solar System Workflow
 on: 
   workflow_dispatch:
   push:
-
+permissions:
+  write: packages
+  read: packages
 jobs:
     
   building:
@@ -73,3 +75,5 @@ jobs:
 
       - name: Pushing Image
         run: docker push ghcr.io/himavanthmutte/ci:${{ github.sha }}
+
+  
