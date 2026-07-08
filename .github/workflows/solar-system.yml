@@ -25,4 +25,26 @@ jobs:
           name: ci-learning-image
           path: ./ci-learning.jar
 
-    
+  pushing_docker:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Download Artifact
+        uses: actions/download-artifact@v7
+        with: 
+          name: ci-learning-image
+
+      - name: Docker Login
+        uses: docker/login-action@v4
+        with: 
+          username: himu26
+          password: "@4762105HH"
+      
+      - name: Loading Image
+        run: docker load -i ci-learning.jar
+
+      - name: Retagging 
+        run: docker tag ci-learning docker.io/himu26/ci:${{ github.sha }}
+
+      - name: Pushing Image
+        run: docker push docker.io/himu26/ci:${{ github.sha }}
