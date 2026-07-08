@@ -3,17 +3,19 @@ on:
     push:
     workflow_dispatch:
 jobs:
-
-    - name: Connecting to EC2
-      uses: appleboy/ssh-action@v1
-      with:
-        host: 13.203.205.202
-        username: himu26
-        key: ${{ secrets.PRIVATE_KEY }}
-        script: |
-            docker images
-            docker ps
-            docker stop app || true
-            docker rm app || true
-            docker run -p 3000:3000 --name app dokcer.io/himu26/ci
+    deploying:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Connecting to EC2
+            uses: appleboy/ssh-action@v1
+            with:
+                host: 13.203.205.202
+                username: himu26
+                key: ${{ secrets.PRIVATE_KEY }}
+                script: |
+                    docker images
+                    docker ps
+                    docker stop app || true
+                    docker rm app || true
+                    docker run -p 3000:3000 --name app dokcer.io/himu26/ci
 
