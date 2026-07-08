@@ -10,7 +10,7 @@ jobs:
                 uses: appleboy/ssh-action@v1
                 with:
                     host: 13.203.205.202
-                    username: himu26
+                    username: himu
                     key: ${{ secrets.PRIVATE_KEY }}
                     script: |
                         docker images
