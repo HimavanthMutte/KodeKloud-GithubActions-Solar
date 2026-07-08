@@ -4,8 +4,9 @@ on:
   workflow_dispatch:
   push:
 permissions:
-  write: packages
-  read: packages
+  contents: read    
+  packages: write
+  
 jobs:
     
   building:
