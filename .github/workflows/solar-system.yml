@@ -103,5 +103,5 @@ jobs:
         run: docker tag ci-learning ${{ secrets.ECR_URI }}:${{ github.sha }}
 
       - name: Pushing Image
-        run: docker push ${{ secrets.ECR_URI }}:${{ github.sha }
+        run: docker push ${{ secrets.ECR_URI }}:${{ github.sha }}
   
