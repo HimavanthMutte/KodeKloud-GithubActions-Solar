@@ -48,3 +48,28 @@ jobs:
 
       - name: Pushing Image
         run: docker push docker.io/himu26/ci:${{ github.sha }}
+  
+  pushing_ghcr:
+    runs-on: ubuntu-latest
+    needs: building
+    steps:
+      - name: Download Artifact
+        uses: actions/download-artifact@v7
+        with: 
+          name: ci-learning-image
+
+      - name: Docker Login
+        uses: docker/login-action@v4
+        with: 
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Loading Image
+        run: docker load -i ci-learning.jar
+
+      - name: Retagging 
+        run: docker tag ci-learning ghcr.io/${{ github.actor }}/ci:${{ github.sha }}
+
+      - name: Pushing Image
+        run: docker push ghcr.io/${{ github.actor }}/ci:${{ github.sha }}
