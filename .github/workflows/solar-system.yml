@@ -32,6 +32,7 @@ jobs:
 
       - name: Updating Image in Task Definition File
         uses: aws-actions/amazon-ecs-render-task-definition@v1
+        id: render-task
         with:
           task-definition: task-def.json
           container-name: node-app
@@ -41,7 +42,7 @@ jobs:
         uses: aws-actions/amazon-ecs-deploy-task-definition@v2
 
         with:
-          task-definition: task-def.json
+          task-definition: ${{ steps.render-task.outputs.task-definition }}
           service: ecr-practice-1-task-def-service-5h5zdm59
           cluster: ecr-practice-1-cluster
           wait-for-service-stability: true
