@@ -21,8 +21,8 @@ jobs:
           aws-secret-access-key: ${{ secrets.SECRET_KEY }}
           aws-region: ap-south-1
 
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v4
+      - name: Login to ECR
+        uses: aws-actions/amazon-ecr-login@v2
 
       - name: Pushing to ECR
         run: docker push ${{ secrets.ECR_URI }}:${{ github.sha }}
