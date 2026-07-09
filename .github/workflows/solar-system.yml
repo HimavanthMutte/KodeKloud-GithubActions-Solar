@@ -25,4 +25,4 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v4
 
       - name: Pushing to ECR
-        run: docker push ${{ secrets.ECR_URI }}:${{ gtihub.sha }}
+        run: docker push ${{ secrets.ECR_URI }}:${{ github.sha }}
