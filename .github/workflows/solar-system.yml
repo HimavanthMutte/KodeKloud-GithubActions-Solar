@@ -26,3 +26,22 @@ jobs:
 
       - name: Pushing to ECR
         run: docker push ${{ secrets.ECR_URI }}:${{ github.sha }}
+      
+      - name: Download ECS Task Def File
+        run: aws ecs describe-task-definition --task-definition ecr-practice-1-task-def --query taskDefinition > task-def.json
+
+      - name: Updating Image in Task Definition File
+        uses: aws-actions/amazon-ecs-render-task-definition@v1
+        with:
+          task-definition: task-def.json
+          container-name: node-app
+          image: '${{ secrets.ECR_URI }}:${{ github.sha }}'
+
+      - name: Deploy ECS Service
+        uses: aws-actions/amazon-ecs-deploy-task-definition@v2
+
+        with:
+          task-definition: task-def.json
+          service: ecr-practice-1-task-def-service-5h5zdm59
+          cluster: ecr-practice-1-cluster
+          wait-for-service-stability: true
